@@ -1,25 +1,87 @@
 <script setup>
+const props = defineProps({
+    product: Object,
+})
+
 
 </script>
 
 <template>
     <div class="food-list-card">
         <div class="food-list-card__img">
-            <img src="" alt="">
+            <img :src="product.sizes.middle.image" alt="{{product.name}}">
         </div>
         <div class="food-list-card__description">
             <div class="food-list-card__description-wrapper">
-                <div class="food-list-card__title"></div>
-                <div class="food-list-card__characteristic"></div>
+                <div class="food-list-card__title">{{product.name}}</div>
+                <div class="food-list-card__characteristic">{{product.composition}}</div>
             </div>
             <div class="food-list-card__cost-button">
-                <div class="food-list-card__cost"></div>
-                <button class="food-list-card__button"></button>
+                <div class="food-list-card__cost"><span>{{product.cost}} р</span></div>
+                <button class="food-list-card__button">Заказать</button>
             </div>
         </div>
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.food-list-card {
+    height: auto;
+    width: calc(100% / 3 - 20px);
+    margin: 0 10px 10px 0;
+    padding: 15px;
+    box-shadow: 0 2px 20px 0px rgb(241, 241, 241);
+}
+.food-list-card__img { 
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.food-list-card__description {
+    margin: 10px 0;
+}
 
+.food-list-card__title {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+}
+.food-list-card__characteristic {
+    font-size: 15px;
+    margin: 10px 0;
+    max-height: 20px;
+    min-height: 50px;
+    overflow: hidden;
+}
+.food-list-card__cost {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.food-list-card__cost-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+.food-list-card__description-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.food-list-card__button {
+    width: 140px;
+    height: 40px;
+    background-color: #ee7627;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition-duration: 500ms;
+    &:hover {
+        background-color: #fff;
+        color: #ee7627;
+        border: solid 1px #ee7627;
+    }
+}
 </style>
