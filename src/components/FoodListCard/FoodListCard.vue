@@ -1,15 +1,32 @@
 <script setup>
-const props = defineProps({
+import { ref, computed } from "vue";
+import store from "../../store/store";
+import FoodListCardPopUpVue from "../FoodListCardPopUp/FoodListCardPopUp.vue"
+
+const isOpen = ref(false);
+const id = computed(() => store.state.general.link);
+
+defineProps({
     product: Object,
+    type: String,
 })
+
+const closeWindow = () => {
+    isOpen.value = false;
+    console.log(isOpen.value)
+    console.log('check')
+}
+
+const open = () => isOpen.value = true;
 
 
 </script>
 
 <template>
-    <div class="food-list-card">
+    <div class="food-list-card" @click="open">
         <div class="food-list-card__img">
-            <img :src="product.sizes.middle.image" alt="{{product.name}}">
+            <img :src="product.image" alt="{{product.name}}">
+
         </div>
         <div class="food-list-card__description">
             <div class="food-list-card__description-wrapper">
@@ -21,6 +38,9 @@ const props = defineProps({
                 <button class="food-list-card__button">Заказать</button>
             </div>
         </div>
+        <FoodListCardPopUpVue v-if="isOpen" :product="product" 
+                                            :type="id" 
+                                            @close-window="closeWindow" />
     </div>
 </template>
 
@@ -31,6 +51,7 @@ const props = defineProps({
     margin: 0 10px 10px 0;
     padding: 15px;
     box-shadow: 0 2px 20px 0px rgb(241, 241, 241);
+    cursor: pointer;
 }
 .food-list-card__img { 
     img {

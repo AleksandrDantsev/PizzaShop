@@ -1,26 +1,26 @@
 <script setup>
-import { provide, ref } from 'vue';
+import { ref, watch } from 'vue';
+import store from "../../store/store";
 const currentLink = ref();
 
 function checkLink(e) {
     if (e.target.tagName === "A") {
         currentLink.value = getLastLink(e.target.href);
-        
+        store.commit("changeLink", currentLink.value)
     }
 }
 
 function getLastLink(fullLink) {
      return fullLink.split('/').at(-1);
 }
-console.log(currentLink)
-provide('link', 'hello!')
+
 </script>
 
 <template>
   <header class="header">
     <div class="header__wrapper">
         <ul class="header__list" @click.prevent="checkLink" >
-            <li><a href="/">Пиццы</a></li>
+            <li><a href="/pizza">Пиццы</a></li>
             <li><a href="/kombo">Комбо</a></li>
             <li><a href="/snack">Закуски</a></li>
             <li><a href="/cocktail">Коктейли</a></li>
