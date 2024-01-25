@@ -1,10 +1,13 @@
 <script setup>
+import Banner from "../Banner/Banner.vue";
 import Header from "../Header/Header.vue";
+
 </script>
 
 <template>
     <div class="wrapper">
         <Header />
+        <!-- <Banner /> -->
         <main class="main">
             <router-view></router-view>
         </main>
