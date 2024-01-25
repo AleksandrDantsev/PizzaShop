@@ -38,10 +38,10 @@ const open = () => isOpen.value = true;
                 <button class="food-list-card__button">Заказать</button>
             </div>
         </div>
-        <FoodListCardPopUpVue v-if="isOpen" :product="product" 
-                                            :type="id" 
-                                            @close-window="closeWindow" />
     </div>
+    <FoodListCardPopUpVue v-if="isOpen" :product="product" 
+                                        :type="id" 
+                                        @close-window="closeWindow" />
 </template>
 
 <style scoped lang="scss">
@@ -52,6 +52,11 @@ const open = () => isOpen.value = true;
     padding: 15px;
     box-shadow: 0 2px 20px 0px rgb(241, 241, 241);
     cursor: pointer;
+    transition-duration: 200ms;
+    &:hover {
+        transform: translate(1px, 2px);
+        box-shadow: 0 2px 10px 0px rgb(207, 207, 207);
+    }
 }
 .food-list-card__img { 
     img {

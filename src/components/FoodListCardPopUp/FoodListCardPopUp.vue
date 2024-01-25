@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { additives } from "../../baseData/additives";
+import AdditiveToOrderVue from "../AdditiveToOrder/AdditiveToOrder.vue";
 defineProps({
     product: Object,
     type: String,
@@ -49,12 +51,19 @@ const getSize = (e) => {
                         </div>
                     </div>
                     <div v-else class="info-card__size-rest-prod">
-                        <span>{{product.size}} л</span>
+                        <span v-if="type === 'coffee' || type === 'drink'">{{product.size}} л</span>
                         <span>{{product.weight}} гр</span>
                     </div>
                 </div>
                 <div class="info-card__composition">
                     {{product.composition}}
+                </div>
+                <div v-if="type === 'pizza'" class="info-card__additive">
+                    <AdditiveToOrderVue v-for="additive in additives" :key="additive.id"
+                                        :name="additive.name"
+                                        :image="additive.image"
+                                        :id="additive.id"
+                                        :cost="additive.cost" />
                 </div>
             </div>
             <div class="info-card__button">
@@ -91,7 +100,7 @@ const getSize = (e) => {
     transform: translate3d(-50%, -50%, 0);
 }
 .info-card__img {
-    width: 50%;
+    width: 55%;
     height: 100%;
     margin-right: 2%;
     img {
@@ -104,7 +113,7 @@ const getSize = (e) => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 48%;
+    width: 43%;
 }
 .info-card__content {
 
@@ -117,26 +126,36 @@ const getSize = (e) => {
 .info-card__size {
     font-size: 14px;
 }
+.info-card__additive {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 5px 5px 0;
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+}
+$backgroundSizePanel: #ececec;
 .choise-size-button {
     display: flex;
     justify-content: space-between;
     width: 100%;
     border-radius: 10px;
-    background-color: #f1f1f1;
+    background-color: $backgroundSizePanel;
 }
 .choise-button-elem {
     display: inline-block;
-        width: calc(100% / 3);
-        width: 100%;
-        height: 32px;
-        border-radius: 10px;
-        background-color: #ececec;
-        cursor: pointer;
+    width: calc(100% / 3);
+    width: 100%;
+    height: 32px;
+    border-radius: 10px;
+    background-color: $backgroundSizePanel;
+    cursor: pointer;
 }
 .choised-button {
     background-color: #ffffff;
-    box-shadow: 0 1px 10px 1px rgb(209, 209, 209);
+    box-shadow: 0 3px 20px 0 rgb(209, 209, 209);
     border-radius: 10px;
+    transition-duration: 100ms;
 }
 .info-card__size-rest-prod {
     display: flex;
