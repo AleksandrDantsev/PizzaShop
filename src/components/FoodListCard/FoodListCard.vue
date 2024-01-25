@@ -50,6 +50,7 @@ const open = () => isOpen.value = true;
     width: calc(100% / 3 - 20px);
     margin: 0 10px 10px 0;
     padding: 15px;
+    border-radius: 15px;
     box-shadow: 0 2px 20px 0px rgb(241, 241, 241);
     cursor: pointer;
     transition-duration: 200ms;
