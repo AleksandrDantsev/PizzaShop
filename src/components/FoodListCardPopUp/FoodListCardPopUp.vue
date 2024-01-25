@@ -5,9 +5,18 @@ defineProps({
     type: String,
     // close-window: Function,
 });
-
+const sizeTable = {
+    small: 'Маленькая',
+    middle: 'Средняя',
+    big: 'Большая',
+}
 const choisedSize = ref('middle');
 
+const getSize = (e) => {
+    if (e.target.tagName === "BUTTON") {
+        choisedSize.value = e.target.id;
+    }
+}
 
 
 </script>
@@ -26,9 +35,17 @@ const choisedSize = ref('middle');
                 </div>
                 <div class="info-card__size">
                     <div v-if="type === 'pizza'" class="info-card__size-pizza">
-                        <div class="info-card__button-size" v-for="val in product.sizes" :key="val">
-                            <span>{{val.diameter}} см</span>
-                            <span>{{val.weight}} гр</span>
+                        <div class="info-card__size-rest-prod">
+                            <span>{{product.sizes[choisedSize].diameter}} см</span>
+                            <span>{{product.sizes[choisedSize].weight}} гр</span>
+                        </div>
+                        <div class="choise-size-button" @click="getSize">
+                            <button class="choise-button-elem" v-for="(size, key) in product.sizes" 
+                                    :id="key"  
+                                    :class="{'choised-button': key === choisedSize}" 
+                                    :key="size">
+                                        {{sizeTable[key]}}
+                                    </button>
                         </div>
                     </div>
                     <div v-else class="info-card__size-rest-prod">
@@ -64,10 +81,10 @@ const choisedSize = ref('middle');
     z-index: 50;
     left: 50%;
     top: 50% ;
-    height: 500px;
+    height: 550px;
     min-width: 300px;
-    width: 60vw;
-    padding: 25px;
+    width: 65vw;
+    padding: 30px;
     background-color: #ffffff;
     box-shadow: 0 0 15px 0 rgb(117, 117, 117);
     border-radius: 30px;
@@ -98,7 +115,28 @@ const choisedSize = ref('middle');
     font-weight: bold;
 }
 .info-card__size {
-    
+    font-size: 14px;
+}
+.choise-size-button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+.choise-button-elem {
+    display: inline-block;
+        width: calc(100% / 3);
+        width: 100%;
+        height: 32px;
+        border-radius: 10px;
+        background-color: #ececec;
+        cursor: pointer;
+}
+.choised-button {
+    background-color: #ffffff;
+    box-shadow: 0 1px 10px 1px rgb(209, 209, 209);
+    border-radius: 10px;
 }
 .info-card__size-rest-prod {
     display: flex;
